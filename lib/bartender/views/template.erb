@@ -7,10 +7,13 @@
     <div class="site">
       <div id="home">
         <ul class="posts">
-          <li><form method="POST"><input type="submit" value="Build"/></form></li>
           <% commits.each do |commit| %>
           <li>
             <strong> <%= commit.author %> | <%= commit.email %></strong>
+            <form method="POST">
+              <input type="hidden" value="<%= commit.sha %>" name="sha"/>
+              <input type="submit" value="Build"/>
+            </form>
             <%= commit.sha %> 
             <%= commit.message %>
             <%= commit.date %>

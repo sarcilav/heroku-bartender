@@ -9,5 +9,11 @@ module Bartender
     get "/" do
       erb(:template, {}, :commits => Log.generate_commits)
     end
+    post "/" do
+      if params[:sha]
+        Command.move_to params[:sha]
+      end
+      erb(:template, {}, :commits => Log.generate_commits)
+    end
   end
 end
