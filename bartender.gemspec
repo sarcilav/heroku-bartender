@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift 'lib'
-require 'bartendere/version'
+require 'bartender/version'
 
 Gem::Specification.new do |spec|
   spec.authors = [ "Sebastian Arcila-Valenzuela" ]
