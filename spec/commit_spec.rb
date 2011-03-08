@@ -4,7 +4,6 @@ describe Bartender::Commit do
   before(:each) do
     @commit = Bartender::Commit.new
   end
-  # let(:commit) { Bartender::Commit.new }
   ATTR = [ :sha, :author, :email, :message, :date]
   describe "attributes" do
     ATTR.each do |attr|
