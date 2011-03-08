@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bartender</title>
+  </head>
+  <body>
+    <div class="site">
+      <div id="home">
+        <ul class="posts">
+          <li><form method="POST"><input type="submit" value="Build"/></form></li>
+          <% commits.each do |commit| %>
+          <li>
+            <strong> <%= commit.author %> | <%= commit.email %></strong>
+            <%= commit.sha %> 
+            <%= commit.message %>
+            <%= commit.date %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
