@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Bartender::Commit do
+describe Heroku::Bartender::Commit do
   before(:each) do
-    @commit = Bartender::Commit.new
+    @commit = Heroku::Bartender::Commit.new
   end
   ATTR = [ :sha, :author, :email, :message, :date]
   describe "attributes" do

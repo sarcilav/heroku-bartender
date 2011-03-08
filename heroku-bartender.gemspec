@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift 'lib'
-require 'bartender/version'
+require 'heroku/bartender/version'
 
 Gem::Specification.new do |spec|
   spec.authors = [ "Sebastian Arcila-Valenzuela" ]
@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.email = "sebastianarcila@gmail.com"
   spec.has_rdoc = false
   spec.homepage = "http://github.com/sarcilav/bartende"
-  spec.name = "bartender"
-  spec.version = Bartender::VERSION
-  spec.summary = %q{See example: https://github.com/sarcilav/bartender/blob/master/README.markdown}
+  spec.name = "heroku-bartender"
+  spec.version = Heroku::Bartender::VERSION
+  spec.summary = %q{See example: https://github.com/sarcilav/heroku-bartender/blob/master/README.markdown}
 
   spec.files = %w( README.markdown Rakefile LICENSE )
   spec.files += Dir.glob("lib/**/*")
