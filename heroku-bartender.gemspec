@@ -17,8 +17,8 @@ Gem::Specification.new do |spec|
   spec.files                       += Dir.glob("bin/**/*")
   
   spec.add_development_dependency "rspec"
-  spec.add_dependency("git", ">     = 1.2.5")
-  spec.add_dependency("sinatra", "> = 1.2.0")
+  spec.add_dependency("git", ">= 1.2.5")
+  spec.add_dependency("sinatra", ">= 1.2.0")
 
   s.executables                     = %w( heroku-bartender )
 end
