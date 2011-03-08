@@ -20,5 +20,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency("git", ">= 1.2.5")
   spec.add_dependency("sinatra", ">= 1.2.0")
 
-  s.executables                     = %w( heroku-bartender )
+  spec.executables                     = %w( heroku-bartender )
 end
