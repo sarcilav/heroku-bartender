@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.description = "Ruby gem to handle releases in heroku."
   spec.email = "sebastianarcila@gmail.com"
   spec.has_rdoc = false
-  spec.homepage = "http://github.com/sarcilav/bartende"
+  spec.homepage = "http://github.com/sarcilav/heroku-bartender"
   spec.name = "heroku-bartender"
   spec.version = Heroku::Bartender::VERSION
   spec.summary = %q{See example: https://github.com/sarcilav/heroku-bartender/blob/master/README.markdown}
