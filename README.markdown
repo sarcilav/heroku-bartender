@@ -1,9 +1,12 @@
-# Bartender
+# Heroku Bartender
 Is a simple way to manage releases in heroku
 
 # How to bartender
 ## Install
-
+   gem install heroku-bartender
+## Run
+   heroku-bartender
+For now you must run `heroku-bartender` inside your repo dir
 # Feature
 You can rollback your heroku app to a specific commit hash
 
