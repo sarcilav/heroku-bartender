@@ -1,6 +1,9 @@
 # Bartender
 Is a simple way to manage releases in heroku
 
+# How to bartender
+## Install
+
 # Feature
 You can rollback your heroku app to a specific commit hash
 
