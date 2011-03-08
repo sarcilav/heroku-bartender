@@ -4,19 +4,27 @@
     <title>Bartender</title>
   </head>
   <body>
+    <div class='title'>
+      <h1> Bartender </h1>
+    </div>
     <div class="site">
       <div id="home">
         <ul class="posts">
           <% commits.each do |commit| %>
           <li>
-            <strong> <%= commit.author %> | <%= commit.email %></strong>
+            <h3> <%= commit.author %> | <%= commit.email %></h3>
+            <p>
+              <%= commit.sha %> 
+            </p>
+            <p>
+              <%= commit.message %>
+              <%= commit.date %>
+            </p>
             <form method="POST">
               <input type="hidden" value="<%= commit.sha %>" name="sha"/>
               <input type="submit" value="Build"/>
             </form>
-            <%= commit.sha %> 
-            <%= commit.message %>
-            <%= commit.date %>
+
           </li>
           <% end %>
         </ul>
