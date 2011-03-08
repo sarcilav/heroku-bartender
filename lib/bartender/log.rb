@@ -1,8 +1,8 @@
 require "git"
 module Bartender
   class Log
-    def self.get_log
-      Git.open('.').log
+    def self.get_log(old_commits = 500)
+      Git.open('.').log(old_commits)
     end
     def self.generate_commits
       get_log.map do |item|
