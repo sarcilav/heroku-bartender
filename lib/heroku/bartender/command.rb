@@ -3,8 +3,8 @@ module Heroku
     class Command
       # move to an specific commit
       # Pending ada more testing stuff
-      def self.move_to release
-        `git push -f heroku #{release}:master`
+      def move_to release, heroku_remote
+        `git push -f #{heroku_remote} #{release}:master`
       end
     end
   end

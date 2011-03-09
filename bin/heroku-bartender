@@ -5,7 +5,7 @@ require 'heroku/bartender'
 require 'choice'
 
 Choice.options do
-  banner "Usage: #{File.basename(__FILE__)} [-hpv] path_to_git_repo"
+  banner "Usage: #{File.basename(__FILE__)} [-hptv]"
   header ''
   header 'Server options:'
 
@@ -28,7 +28,14 @@ Choice.options do
 
   separator ''
   separator 'Common options: '
-
+  
+  option :target do
+    d = "heroku"
+    short '-t'
+    long '--target=TARGET'
+    desc "The target is the git remote in which you want to deploy (default #{d})"
+    default d
+  end
   option :help do
     long '--help'
     desc 'Show this message'
@@ -48,4 +55,4 @@ end
 options = Choice.choices
 
 
-Heroku::Bartender::Server.run! :host => options[:host], :port => options[:port]
+Heroku::Bartender::Server.start(options[:host], options[:port], options[:target])
