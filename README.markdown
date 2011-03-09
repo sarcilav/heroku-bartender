@@ -3,9 +3,9 @@ Is a simple way to manage releases in heroku
 
 # How to bartender
 ## Install
-   gem install heroku-bartender
+        gem install heroku-bartender
 ## Run
-   heroku-bartender
+        heroku-bartender
 ## Options
 Server options:
     -h, --host=HOST                  The hostname or ip of the host to bind to (default 0.0.0.0)
