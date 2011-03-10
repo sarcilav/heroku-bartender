@@ -17,7 +17,6 @@ module Heroku
       end
       def self.start(host, port, heroku_remote)
         @@heroku_remote = heroku_remote
-        puts @@heroku_remote
         Heroku::Bartender::Server.run!(:host => host, :port => port)
       end
     end
