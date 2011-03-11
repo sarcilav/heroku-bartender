@@ -1,5 +1,5 @@
 module Heroku
   module Bartender
-    VERSION = '0.1.4.2'
+    VERSION = '0.2.0'
   end
 end
