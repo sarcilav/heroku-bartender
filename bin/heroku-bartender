@@ -25,10 +25,22 @@ Choice.options do
     cast Integer
     default d
   end
+  
+  option :user do
+    d = ''
+    long '--user=USER'
+    desc "The user to login using HTTP Basic Auth"
+    default d
+  end
+  option :password  do
+    d = ''
+    long '--password=PASSWORD'
+    desc "The password to login using HTTP Basic Auth"
+  end
 
   separator ''
   separator 'Common options: '
-  
+
   option :target do
     d = "heroku"
     short '-t'
@@ -55,4 +67,8 @@ end
 options = Choice.choices
 
 
-Heroku::Bartender::Server.start(options[:host], options[:port], options[:target])
+Heroku::Bartender::Server.start(options[:host],
+                                options[:port],
+                                options[:target],
+                                options[:user],
+                                options[:password])

@@ -11,10 +11,15 @@ Server options:
     -h, --host=HOST                  The hostname or ip of the host to bind to (default 0.0.0.0)
     -p, --port=PORT                  The port to listen on (default 4567)
     -t, --target=TARGET              The target is the git remote in which you want to deploy (default heroku)
+        --user=USER                  The user to login using HTTP Basic Auth
+        --password=PASSWORD          The password to login using HTTP Basic Auth
+
 
 For now you must run `heroku-bartender` inside your repo dir
-# Feature
-You can rollback your heroku app to a specific commit hash
+# Features
+1. You can rollback your heroku app to a specific commit hash
+2. You can secure your heroku-bartender server using HTTP Basic Auth
+3. You can use a custom heroku remote target to deploy your app
 
 # TODO
 1. Keep update the repo
