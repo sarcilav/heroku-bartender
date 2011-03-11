@@ -1,9 +1,9 @@
-require "git"
+require "grit"
 module Heroku
   module Bartender
     class Log
-      def self.get_log(old_commits = 500)
-        Git.open('.').log(old_commits)
+      def self.get_log
+        Grit::Repo.new('.').log
       end
       def self.generate_commits
         get_log.map do |item|

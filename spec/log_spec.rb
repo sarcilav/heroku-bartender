@@ -22,8 +22,9 @@ describe Heroku::Bartender::Log do
     before(:each) do
       @git_log = Heroku::Bartender::Log.get_log
     end
-    it "should return Git::Log" do
-      @git_log.class.should eq(Git::Log)
+    it "should return an array of commits" do
+      @git_log.class.should eq(Array)
+      @git_log.first.class.should eq(Grit::Commit)
     end
     COLLECTION_METHODS = [:each, :map, :first]
     COLLECTION_METHODS.each do |cmethod|
