@@ -7,6 +7,7 @@
     <div class='title'>
       <h1> Heroku Bartender </h1>
     </div>
+    <a href="#d0fed0d328f55c7d26ab1b811fe28ad2eb4085f9"> Current version</a>
     <div class="site">
       <div id="home">
         <ul class="posts">
@@ -14,7 +15,7 @@
           <li>
             <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
-              <%= commit.sha %> 
+              <a name="<%= commit.sha %>"><%= commit.sha %></a>
             </p>
             <p>
               <%= commit.message %>

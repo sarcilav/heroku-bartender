@@ -9,13 +9,13 @@ module Heroku
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
       get "/" do
-        erb(:template, {}, :commits => Log.generate_commits)
+        erb(:template, {}, :commits => Log.generate_commits, :current_version => Command.current_version(@@heroku_remote))
       end
       post "/" do
         if params[:sha]
           Command.move_to params[:sha], @@heroku_remote
         end
-        erb(:template, {}, :commits => Log.generate_commits)
+        erb(:template, {}, :commits => Log.generate_commits, :current_version => Command.current_version(@@heroku_remote))
       end
       def self.start(host, port, heroku_remote, user, pass)
         @@heroku_remote = heroku_remote
