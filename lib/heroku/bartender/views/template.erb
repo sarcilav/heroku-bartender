@@ -3,28 +3,46 @@
   <head>
     <title>Heroku Bartender</title>
     <style type="text/css">
+      #home{
+         width: 80%;
+         float:left;
+      }
+      #colors{
+         margin-left: 81%;
+         position: fixed;
+         width: 20%;
+      }
       .current{
         background-color: yellow;
         color: blue;
       }
+      .green  { background-color: lime;  }
+      .yellow { background-color: yellow; }
+      .red    { background-color: red;    }
     </style>
   </head>
   <body>
     <div class='title'>
       <h1> Heroku Bartender </h1>
     </div>
-    <a href="#<%= current_version %>"> Current version</a>
+    <a href="#<%= current_version %>"> 
+      Current version status: <%= state(status) %>
+    </a>
     <div class="site">
       <div id="home">
         <ul class="posts">
           <% commits.each do |commit| %>
-          <li class="<%= commit.sha == current_version ? 'current' : '' %>">
+          <li class="<%= current_class(current_version, commit.sha) %>
+                      <%= color_status(status) %>"
+            <a name="<%= commit.sha %>"></a>
             <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
-              <a name="<%= commit.sha %>"><%= commit.sha %></a>
+              <%= commit.sha %>
             </p>
             <p>
               <%= commit.message %>
+            </p>
+            <p>
               <%= commit.date %>
             </p>
             <form method="POST">
@@ -35,6 +53,17 @@
           </li>
           <% end %>
         </ul>
+      </div>
+      <div id='colors'>
+        <div class="green">
+          Ok: The deploy runs properly
+        </div>
+        <div class="yellow">
+          Unknown: No deployed version, or problems contacting heroku
+        </div>
+        <div class="red">
+          Fail: The deploy goes wrong
+        </div>
       </div>
     </div>
   </body>
