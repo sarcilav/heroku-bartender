@@ -2,17 +2,23 @@
 <html>
   <head>
     <title>Heroku Bartender</title>
+    <style type="text/css">
+      .current{
+        background-color: yellow;
+        color: blue;
+      }
+    </style>
   </head>
   <body>
     <div class='title'>
       <h1> Heroku Bartender </h1>
     </div>
-    <a href="#d0fed0d328f55c7d26ab1b811fe28ad2eb4085f9"> Current version</a>
+    <a href="#<%= current_version %>"> Current version</a>
     <div class="site">
       <div id="home">
         <ul class="posts">
           <% commits.each do |commit| %>
-          <li>
+          <li class="<%= commit.sha == current_version ? 'current' : '' %>">
             <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
               <a name="<%= commit.sha %>"><%= commit.sha %></a>
