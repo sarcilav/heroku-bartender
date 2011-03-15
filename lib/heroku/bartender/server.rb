@@ -13,7 +13,9 @@ module Heroku
       get "/" do
         erb(:template, {}, :commits => Log.generate_commits,
             :current_version => Command.current_version(@@heroku_remote),
-            :deployed_versions => @@deployed_versions)
+            :deployed_versions => @@deployed_versions,
+            :status => @@status
+            )
       end
       post "/" do
         if params[:sha]
@@ -22,7 +24,9 @@ module Heroku
         end
         erb(:template, {}, :commits => Log.generate_commits,
             :current_version => Command.current_version(@@heroku_remote),
-            :deployed_versions => @@deployed_versions)
+            :deployed_versions => @@deployed_versions,
+            :status => @@status
+            )
       end
       def self.start(host, port, heroku_remote, user, pass)
         @@heroku_remote = heroku_remote
