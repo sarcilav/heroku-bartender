@@ -20,6 +20,9 @@ For now you must run `heroku-bartender` inside your repo dir
 1. You can rollback your heroku app to a specific commit hash
 2. You can secure your heroku-bartender server using HTTP Basic Auth
 3. You can use a custom heroku remote target to deploy your app
+4. Shows red/yellow/green status for deploys (red: fail, green: ok, yellow: unknow problem)
+5. Shows dates for deployed versions
+6. Shows colors/status for old deployed versions (only the versions that are deployed from the start)
 
 # TODO
 1. Keep update the repo
