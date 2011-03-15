@@ -61,6 +61,7 @@ module Heroku
             return 'UNKNOWN'
           end
           ''
+        end
       end
     end
   end
