@@ -33,7 +33,7 @@
           <% commits.each do |commit| %>
           <li class="<%= current_class(current_version, commit.sha) %>
                       <%= color_status(status,current_version, commit.sha) %>"
-            <a name="<%= commit.sha %>"><%= status %></a>
+            <a name="<%= commit.sha %>"> Current </a>
             <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
               <%= commit.sha %>
