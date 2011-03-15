@@ -42,25 +42,25 @@ module Heroku
           sha == current_version_sha ? 'current' : ''
         end
 
-        def color_status(status)
-          if status == true
-            return 'green'
-          elsif status == false
-            return 'red'
-          end
-          'yellow'
-        end
-
-        def state(status, current_version, version_sha)
+        def color_status(status, current_version, version_sha)
           if current_version == version_sha
             if status == true
-              return 'OK'
+              return 'green'
             elsif status == false
-              return 'FAIL'
+              return 'red'
             end
-            return 'UNKNOWN'
+            return 'yellow'
           end
-          ''
+          return ""
+        end
+
+        def state(status)
+          if status == true
+            return 'OK'
+          elsif status == false
+            return 'FAIL'
+          end
+          'UNKNOWN'
         end
       end
     end
