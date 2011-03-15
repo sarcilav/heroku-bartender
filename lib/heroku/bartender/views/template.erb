@@ -31,15 +31,22 @@
       <div id="home">
         <ul class="posts">
           <% commits.each do |commit| %>
-          <li class="<%= current_class(current_version, commit.sha) %> <%= color_status(status,current_version, commit.sha) %>">
+          <li class="<%= current_class(current_version, commit.sha) %> <%= color_status(commit.sha) %>">
             <a name="<%= commit.sha %>"> <%= commit.sha %> </a>
             <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
               <%= commit.message %>
             </p>
             <p>
+              <strong> Committed date </strong>
               <%= commit.date %>
             </p>
+            <% if deployed_versions[commit.sha] %>
+            <p>
+              <strong> Deployed date </strong>
+              <%= deployed_versions[commit.sha][0] %>
+            </p>
+            <% end %>
             <form method="POST">
               <input type="hidden" value="<%= commit.sha %>" name="sha"/>
               <input type="submit" value="Build"/>

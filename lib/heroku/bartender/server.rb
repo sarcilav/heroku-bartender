@@ -6,21 +6,23 @@ module Heroku
       @@heroku_remote
       @@user
       @@pass
+      @@deployed_versions = {}
       @@status = nil
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
       get "/" do
         erb(:template, {}, :commits => Log.generate_commits,
             :current_version => Command.current_version(@@heroku_remote),
-            :status => @@status)
+            :deployed_versions => @@deployed_versions)
       end
       post "/" do
         if params[:sha]
           @@status = Command.move_to params[:sha], @@heroku_remote
+          @@deployed_versions[params[:sha]] = [Time.now, @@status]
         end
         erb(:template, {}, :commits => Log.generate_commits,
             :current_version => Command.current_version(@@heroku_remote),
-            :status => @@status)
+            :deployed_versions => @@deployed_versions)
       end
       def self.start(host, port, heroku_remote, user, pass)
         @@heroku_remote = heroku_remote
@@ -42,16 +44,14 @@ module Heroku
           sha == current_version_sha ? 'current' : ''
         end
 
-        def color_status(status, current_version, version_sha)
-          if current_version == version_sha
-            if status == true
-              return 'green'
-            elsif status == false
-              return 'red'
-            end
-            return 'yellow'
+        def color_status(version_sha)
+          status = @@deployed_versions[version_sha][1]
+          if status == true
+            return 'green'
+          elsif status == false
+            return 'red'
           end
-          return ""
+          return 'yellow'
         end
 
         def state(status)
