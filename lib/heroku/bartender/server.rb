@@ -10,13 +10,17 @@ module Heroku
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
       get "/" do
-        erb(:template, {}, :commits => Log.generate_commits, :current_version => Command.current_version(@@heroku_remote),  :status => @@status)
+        erb(:template, {}, :commits => Log.generate_commits,
+            :current_version => Command.current_version(@@heroku_remote),
+            :status => @@status)
       end
       post "/" do
         if params[:sha]
           @@status = Command.move_to params[:sha], @@heroku_remote
         end
-        erb(:template, {}, :commits => Log.generate_commits, :current_version => Command.current_version(@@heroku_remote), :status => @@status)
+        erb(:template, {}, :commits => Log.generate_commits,
+            :current_version => Command.current_version(@@heroku_remote),
+            :status => @@status)
       end
       def self.start(host, port, heroku_remote, user, pass)
         @@heroku_remote = heroku_remote
@@ -47,14 +51,16 @@ module Heroku
           'yellow'
         end
 
-        def state(status)
-          if status == true
-            return 'OK'
-          elsif status == false
-            return 'FAIL'
+        def state(status, current_version, version_sha)
+          if current_version == version_sha
+            if status == true
+              return 'OK'
+            elsif status == false
+              return 'FAIL'
+            end
+            return 'UNKNOWN'
           end
-          'UNKNOWN'
-        end
+          ''
       end
     end
   end
