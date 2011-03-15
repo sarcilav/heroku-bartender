@@ -45,15 +45,17 @@ module Heroku
         end
 
         def color_status(version_sha)
-          status = @@deployed_versions[version_sha][1]
-          if status == true
-            return 'green'
-          elsif status == false
-            return 'red'
+          if @@deployed_versions[version_sha]
+            status = @@deployed_versions[version_sha][1]
+            if status == true
+              return 'green'
+            elsif status == false
+              return 'red'
+            end
+            return 'yellow'
           end
-          return 'yellow'
+          ''
         end
-
         def state(status)
           if status == true
             return 'OK'
