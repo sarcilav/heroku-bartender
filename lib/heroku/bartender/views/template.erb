@@ -4,16 +4,16 @@
     <title>Heroku Bartender</title>
     <style type="text/css">
       #home{
-         width: 80%;
-         float:left;
+      width: 80%;
+      float:left;
       }
       #colors{
-         margin-left: 81%;
-         position: fixed;
-         width: 20%;
+      margin-left: 81%;
+      position: fixed;
+      width: 20%;
       }
       .current{
-        color: blue;
+      color: blue;
       }
       .green  { background-color: lime;  }
       .yellow { background-color: yellow; }
@@ -24,21 +24,16 @@
     <div class='title'>
       <h1> Heroku Bartender </h1>
     </div>
-    <a href="#<%= current_version %>"> 
+    <a href="#<%= current_version %>">
       Current version status: <%= state(status) %>
     </a>
     <div class="site">
       <div id="home">
         <ul class="posts">
           <% commits.each do |commit| %>
-          <li class="<%= current_class(current_version, commit.sha) %>
-                      <%= color_status(status,current_version, commit.sha) %>"
-            <a name="<%= commit.sha %>"> 
-              <h3> <%= commit.author %> | <%= commit.email %></h3>
-            </a>
-            <p>
-              <%= commit.sha %>
-            </p>
+          <li class="<%= current_class(current_version, commit.sha) %> <%= color_status(status,current_version, commit.sha) %>">
+            <a name="<%= commit.sha %>"> <%= commit.sha %> </a>
+            <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
               <%= commit.message %>
             </p>
