@@ -10,6 +10,7 @@ module Heroku
       @@status = nil
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
+      set :public, "#{dir}/public"
       get "/" do
         erb(:template, {}, :commits => Log.generate_commits,
             :current_version => Command.current_version(@@heroku_remote),
