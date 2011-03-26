@@ -11,6 +11,7 @@ module Heroku
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
       set :public, "#{dir}/public"
+
       get "/" do
         erb(:template, {}, :commits => Log.generate_commits,
             :current_version => Command.current_version(@@heroku_remote),
@@ -18,6 +19,7 @@ module Heroku
             :status => @@status
             )
       end
+
       post "/" do
         if params[:sha]
           @@status = Command.move_to params[:sha], @@heroku_remote
@@ -29,6 +31,7 @@ module Heroku
             :status => @@status
             )
       end
+
       def self.start(host, port, heroku_remote, user, pass)
         @@heroku_remote = heroku_remote
         authorize(user, pass)
@@ -45,6 +48,7 @@ module Heroku
 
       helpers do
         include Rack::Utils
+
         def current_class(current_version_sha, sha)
           sha == current_version_sha ? 'current' : ''
         end
@@ -61,6 +65,7 @@ module Heroku
           end
           ''
         end
+
         def state(status)
           if status == true
             return 'OK'
