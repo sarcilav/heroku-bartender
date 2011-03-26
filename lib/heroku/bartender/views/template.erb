@@ -15,23 +15,23 @@
       .current{
       color: blue;
       }
-      .green  { background-color: lime;  }
-      .yellow { background-color: yellow; }
-      .red    { background-color: red;    }
+      .ok  { background-color: lime;  }
+      .fail { background-color: red; }
+      .unknown    { background-color: yellow;    }
     </style>
   </head>
   <body>
     <div class='title'>
       <h1> Heroku Bartender </h1>
     </div>
-    <a href="#<%= current_version %>">
-      Current version status: <%= state(status) %>
+    <a href="#<%= @current_version %>">
+      Current version status: <%= @current_state %>
     </a>
     <div class="site">
       <div id="home">
         <ul class="posts">
-          <% commits.each do |commit| %>
-          <li class="<%= current_class(current_version, commit.sha) %> <%= color_status(commit.sha) %>">
+          <% @commits.each do |commit| %>
+          <li class="<%= current_class(@current_version, commit.sha) %> <%= color_status(commit.sha) %>">
             <a name="<%= commit.sha %>"> <%= commit.sha %> </a>
             <h3> <%= commit.author %> | <%= commit.email %></h3>
             <p>
@@ -57,13 +57,13 @@
         </ul>
       </div>
       <div id='colors'>
-        <div class="green">
+        <div class="ok">
           Ok: The deploy runs properly
         </div>
-        <div class="yellow">
+        <div class="unknown">
           Unknown: No deployed version, or problems contacting heroku
         </div>
-        <div class="red">
+        <div class="fail">
           Fail: The deploy goes wrong
         </div>
       </div>
