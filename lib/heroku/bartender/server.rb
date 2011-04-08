@@ -36,8 +36,14 @@ module Heroku
         @@options[:port]
       end  
 
+      def self.log_options
+        options = { }
+        options.merge({ :max_count => Server.commits }) if (Server.commits > 0)
+        options
+      end
+
       get "/" do
-        erb(:template, {}, :commits => Log.generate_commits(Server.commits),
+        erb(:template, {}, :commits => Log.generate_commits(Server.log_options),
             :current_version => Command.current_version(Server.target),
             :deployed_versions => @@deployed_versions,
             :status => @@status
@@ -49,7 +55,7 @@ module Heroku
           @@status = Command.move_to params[:sha], target
           @@deployed_versions[params[:sha]] = [Time.now, @@status]
         end
-        erb(:template, {}, :commits => Log.generate_commits(Server.commits),
+        erb(:template, {}, :commits => Log.generate_commits(Server.log_options),
             :current_version => Command.current_version(Server.target),
             :deployed_versions => @@deployed_versions,
             :status => @@status

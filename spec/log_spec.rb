@@ -18,6 +18,12 @@ describe Heroku::Bartender::Log do
       @commits.first.class.should eq(Heroku::Bartender::Commit)
     end
   end
+  describe "generate commits with a max count" do
+    it "should return only one commit with max = 1" do
+      commits = Heroku::Bartender::Log.generate_commits({:max_count => 1})
+      commits.size.should == 1     
+    end
+  end
   describe "get log" do
     before(:each) do
       @git_log = Heroku::Bartender::Log.get_log
