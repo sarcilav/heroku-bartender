@@ -3,48 +3,72 @@ require 'erb'
 module Heroku
   module Bartender
     class Server < Sinatra::Base
-      @@heroku_remote
-      @@user
-      @@pass
+
       @@deployed_versions = {}
       @@status = nil
+      @@options = {}
+
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
       set :public, "#{dir}/public"
+
       get "/" do
         erb(:template, {}, :commits => Log.generate_commits,
-            :current_version => Command.current_version(@@heroku_remote),
+            :current_version => Command.current_version(target),
             :deployed_versions => @@deployed_versions,
             :status => @@status
             )
       end
+
+      def self.user
+        @@options[:user]
+      end
+
+      def self.password
+	      @@options[:password]
+      end
+
+      def self.target
+        @@options[:target] || 'heroku'
+      end
+      
+      def self.host
+        @@options[:host]
+      end
+      
+      def self.port
+        @@options[:port]
+      end
+  
       post "/" do
         if params[:sha]
-          @@status = Command.move_to params[:sha], @@heroku_remote
+          @@status = Command.move_to params[:sha], target
           @@deployed_versions[params[:sha]] = [Time.now, @@status]
         end
         erb(:template, {}, :commits => Log.generate_commits,
-            :current_version => Command.current_version(@@heroku_remote),
+            :current_version => Command.current_version(target),
             :deployed_versions => @@deployed_versions,
             :status => @@status
             )
       end
-      def self.start(host, port, heroku_remote, user, pass)
-        @@heroku_remote = heroku_remote
-        authorize(user, pass)
-        Heroku::Bartender::Server.run!(:host => host, :port => port)
+            
+      def self.start(options = {})
+        @@options = options
+        authorize(user, password)
+        run!(:host => host, :port => port)
       end
 
-      def self.authorize(user, pass)
-        if user != '' && pass != ''
-          use Rack::Auth::Basic, "Restricted Area" do |username, password|
-            [username, password] == [user, pass]
+      def self.authorize(user, password)
+        if ! user.nil?
+          use Rack::Auth::Basic, "Restricted Area" do |u, p|
+            [u, p] == [user, password]
           end
         end
       end
 
       helpers do
         include Rack::Utils
+        
         def current_class(current_version_sha, sha)
           sha == current_version_sha ? 'current' : ''
         end

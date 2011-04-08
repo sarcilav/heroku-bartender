@@ -48,6 +48,7 @@ Choice.options do
     desc "The target is the git remote in which you want to deploy (default #{d})"
     default d
   end
+  
   option :help do
     long '--help'
     desc 'Show this message'
@@ -66,9 +67,5 @@ end
 
 options = Choice.choices
 
+Heroku::Bartender::Server.start(options)
 
-Heroku::Bartender::Server.start(options[:host],
-                                options[:port],
-                                options[:target],
-                                options[:user],
-                                options[:password])
