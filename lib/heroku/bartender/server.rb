@@ -12,12 +12,8 @@ module Heroku
       set :views,  "#{dir}/views"
       set :public, "#{dir}/public"
 
-      get "/" do
-        erb(:template, {}, :commits => Log.generate_commits,
-            :current_version => Command.current_version(target),
-            :deployed_versions => @@deployed_versions,
-            :status => @@status
-            )
+      def self.commits
+        @@options[:commits]
       end
 
       def self.user
@@ -38,15 +34,23 @@ module Heroku
       
       def self.port
         @@options[:port]
+      end  
+
+      get "/" do
+        erb(:template, {}, :commits => Log.generate_commits(Server.commits),
+            :current_version => Command.current_version(Server.target),
+            :deployed_versions => @@deployed_versions,
+            :status => @@status
+            )
       end
-  
+      
       post "/" do
         if params[:sha]
           @@status = Command.move_to params[:sha], target
           @@deployed_versions[params[:sha]] = [Time.now, @@status]
         end
-        erb(:template, {}, :commits => Log.generate_commits,
-            :current_version => Command.current_version(target),
+        erb(:template, {}, :commits => Log.generate_commits(Server.commits),
+            :current_version => Command.current_version(Server.target),
             :deployed_versions => @@deployed_versions,
             :status => @@status
             )

@@ -27,13 +27,13 @@ Choice.options do
   end
   
   option :user do
-    d = ''
+    d = nil
     long '--user=USER'
     desc "The user to login using HTTP Basic Auth"
     default d
   end
   option :password  do
-    d = ''
+    d = nil
     long '--password=PASSWORD'
     desc "The password to login using HTTP Basic Auth"
   end
@@ -46,6 +46,14 @@ Choice.options do
     short '-t'
     long '--target=TARGET'
     desc "The target is the git remote in which you want to deploy (default #{d})"
+    default d
+  end
+
+  option :commits do
+    d = 100
+    short '-c'
+    long '--commits=COUNT'
+    desc "The maximum number of commits to show (default #{d})"
     default d
   end
   
