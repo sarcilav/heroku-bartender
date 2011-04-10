@@ -12,19 +12,22 @@ describe Heroku::Bartender::Command do
     end
     describe "move_to" do
       context "remote and release exist" do
-        it "should return true" do
-          Heroku::Bartender::Command.move_to(@good_sha_commit, @good_remote).
-            should be_true
+        it "should not raise any errors" do
+          Heroku::Bartender::Command.move_to(@good_sha_commit, nil, @good_remote)
+        end
+        it "should raise an error with a failing pre-deploy command" do
+          lambda { Heroku::Bartender::Command.move_to(@good_sha_commit, "foo bar", @good_remote) }.should raise_error
+        end
+        it "should not raise an error with a suceeding pre-deploy command" do
+          lambda { Heroku::Bartender::Command.move_to(@good_sha_commit, "echo 'hello world'", @good_remote) }.should_not raise_error
         end
       end
       context "one of the params are wrong" do
-        it "should return false" do
-          Heroku::Bartender::Command.move_to(@good_sha_commit, "production123").
-            should be_false
-          Heroku::Bartender::Command.move_to("0", @good_remote).should be_false
-          Heroku::Bartender::Command.move_to("0", "production123").should be_false
+        it "should raise an error" do
+          lambda { Heroku::Bartender::Command.move_to(@good_sha_commit, nil, "production123") }.should raise_error
+          lambda { Heroku::Bartender::Command.move_to("0", nil, @good_remote) }.should raise_error
+          lambda { Heroku::Bartender::Command.move_to("0", nil, "production123") }.should raise_error
         end
-
       end
     end
   end
@@ -51,8 +54,8 @@ describe Heroku::Bartender::Command do
         Heroku::Bartender::Command.current_version("").should be_nil
       end
     end
-    context "remote is define and is a proper value" do
-      it "should retun an existing sha" do
+    context "remote is defined and is a proper value" do
+      it "should return an existing sha" do
         Heroku::Bartender::Command.
           sha_exist?(Heroku::Bartender::Command.
                      current_version(@good_remote)).should be_true

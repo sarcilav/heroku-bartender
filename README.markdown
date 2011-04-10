@@ -17,7 +17,7 @@ Server options:
 
 For now you must run `heroku-bartender` inside your repo dir
 
-## Specifying a Deploy Command
+## Specifying a Pre-Deploy Command
 
 You can specify a command to run before deployment.
 

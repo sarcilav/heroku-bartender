@@ -21,7 +21,8 @@ module Heroku
       def self.move_to release, predeploy, heroku_remote
         @@last_error = nil
         if ! predeploy.nil?
-          if ! system(predeploy)
+          rc = system(predeploy)
+          if rc.nil? || ! rc
             raise "Error executing '#{predeploy}': #{$?}"
           end
         end
@@ -32,7 +33,8 @@ module Heroku
         if ! sha_exist?(release)
           raise "No such commit `#{release}"
         end
-        if ! system("git push -f #{heroku_remote} #{release}:master")
+        rc = system("git push -f #{heroku_remote} #{release}:master")
+        if rc.nil? || ! rc 
           raise "Error in `git push -f #{heroku_remote} #{release}:master`: #{$?}"
         end
       end
