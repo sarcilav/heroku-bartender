@@ -95,6 +95,7 @@ module Heroku
           end
           ''
         end
+        
         def state(status)
           if status == true
             return 'OK'
@@ -103,6 +104,11 @@ module Heroku
           end
           'UNKNOWN'
         end
+        
+        def target
+          Server.target
+        end
+        
       end
     end
   end
