@@ -16,6 +16,14 @@ Server options:
     -c, --commits=COUNT              The maximum number of commits to display (default 100)
 
 For now you must run `heroku-bartender` inside your repo dir
+
+## Specifying a Deploy Command
+
+You can specify a command to run before deployment.
+
+    git config --add remote.master.predeploy "rake test"
+
+
 # Features
 1. You can rollback your heroku app to a specific commit hash
 2. You can secure your heroku-bartender server using HTTP Basic Auth

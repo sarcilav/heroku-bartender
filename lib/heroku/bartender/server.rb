@@ -34,8 +34,16 @@ module Heroku
       
       def self.port
         @@options[:port]
-      end  
+      end
+      
+      def self.config
+        Config.send("remote.#{Server.target}")
+      end
 
+      def self.predeploy
+        config.predeploy.to_s
+      end
+  
       def self.log_options
         options = { }
         options.merge({ :max_count => Server.commits }) if (Server.commits > 0)
@@ -52,8 +60,14 @@ module Heroku
       
       post "/" do
         if params[:sha]
-          @@status = Command.move_to params[:sha], target
-          @@deployed_versions[params[:sha]] = [Time.now, @@status]
+          begin
+            Command.move_to params[:sha], predeploy, target
+            @@status = true
+            @@deployed_versions[params[:sha]] = [Time.now, @@status, nil]
+          rescue Exception => e
+            @@status = false
+            @@deployed_versions[params[:sha]] = [Time.now, @@status, e]
+          end
         end
         erb(:template, {}, :commits => Log.generate_commits(Server.log_options),
             :current_version => Command.current_version(Server.target),
@@ -107,6 +121,10 @@ module Heroku
         
         def target
           Server.target
+        end
+        
+        def predeploy
+          Server.predeploy
         end
         
       end

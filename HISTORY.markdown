@@ -1,9 +1,12 @@
 Next
 ====
 
-* 4/8/2011: added --commits=COUNT, max number of commits to display
+* added --commits=COUNT, max number of commits to display
+* added support for pre-deploy commands with `git config --add remote.name.predeploy 'command'`
+* displaying remote name and pre-deploy command on the web interface
+* displaying last error with failures
 
 0.3.0
 =====
 
-* 3/20/2011: initial public release
+* initial public release

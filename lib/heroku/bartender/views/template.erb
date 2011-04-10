@@ -22,11 +22,17 @@
   </head>
   <body>
     <div class='title'>
-      <h1> Heroku Bartender (<%= target %>) </h1>
+      <h1> Heroku Bartender</h1>
     </div>
-    <a href="#<%= current_version %>">
+    <div>
+    <ul>
+     <li><a href="#<%= current_version %>">
       Current version status: <%= state(status) %>
-    </a>
+     </a></li>
+     <li>Remote: <b><%= target %></b></li>
+     <li>Pre-deploy: <b><%= predeploy %></b></li>
+    </ul>
+    </div>
     <div class="site">
       <div id="home">
         <ul class="posts">
@@ -46,6 +52,11 @@
               <strong> Deployed date </strong>
               <%= deployed_versions[commit.sha][0] %>
             </p>
+            <div>
+              <small>
+                <%= deployed_versions[commit.sha][2] %>
+              </small>
+            </div>
             <% end %>
             <form method="POST">
               <input type="hidden" value="<%= commit.sha %>" name="sha"/>
@@ -64,7 +75,7 @@
           Unknown: No deployed version, or problems contacting heroku
         </div>
         <div class="red">
-          Fail: The deploy goes wrong
+          Fail: The deploy went wrong
         </div>
       </div>
     </div>

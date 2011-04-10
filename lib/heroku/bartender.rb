@@ -1,3 +1,4 @@
+require "heroku/bartender/config"
 require "heroku/bartender/commit"
 require "heroku/bartender/log"
 require "heroku/bartender/command"
