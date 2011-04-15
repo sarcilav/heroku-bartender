@@ -39,3 +39,7 @@ You can specify a command to run before deployment.
 4. Styling view
 5. Async build
 6. Integration with CI servers
+# Special Thanks go out to:
+* [Art.sy](http://art.sy/) for let me use 'office' hours to work in this project
+* [@abuiles](https://github.com/abuiles) for the super-cool-name 
+
