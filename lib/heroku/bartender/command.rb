@@ -20,10 +20,10 @@ module Heroku
       
       def self.move_to release, predeploy, heroku_remote
         @@last_error = nil
-        if ! predeploy.nil?
+        if ! predeploy.blank?
           rc = system(predeploy)
           if rc.nil? || ! rc
-            raise "Error executing '#{predeploy}': #{$?}"
+            raise "Error executing pre-deploy command '#{predeploy}': #{$?}"
           end
         end
         repo = Grit::Repo.new('.') 
