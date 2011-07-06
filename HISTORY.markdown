@@ -10,3 +10,8 @@ Next
 =====
 
 * initial public release
+
+0.3.3
+=====
+
+* Solved can't avoid specifying predeploy command.
