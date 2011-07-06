@@ -20,7 +20,7 @@ module Heroku
       
       def self.move_to release, predeploy, heroku_remote
         @@last_error = nil
-        if predeploy && ! predeploy.strip.blank?
+        if predeploy && ! predeploy.strip.empty?
           rc = system(predeploy)
           if rc.nil? || ! rc
             raise "Error executing pre-deploy command '#{predeploy}': #{$?}"
