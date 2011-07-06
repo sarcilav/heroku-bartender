@@ -15,3 +15,7 @@ Next
 =====
 
 * Solved can't avoid specifying predeploy command.
+
+0.3.4
+=====
+* Change a .blank? for an .empty?
