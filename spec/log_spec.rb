@@ -18,12 +18,6 @@ describe Heroku::Bartender::Log do
       @commits.first.class.should eq(Heroku::Bartender::Commit)
     end
   end
-  describe "generate commits with a max count" do
-    it "should return only one commit with max = 1" do
-      commits = Heroku::Bartender::Log.generate_commits({:max_count => 1})
-      commits.size.should == 1     
-    end
-  end
   describe "get log" do
     before(:each) do
       @git_log = Heroku::Bartender::Log.get_log
@@ -38,6 +32,23 @@ describe Heroku::Bartender::Log do
         @git_log.respond_to?(cmethod).should be_true
       end
     end
+    describe "generate paginated commits" do
+      it "should return to different arrays with the same size" do
+        commits1 = Heroku::Bartender::Log.get_log({:page => 0, :max_per_page => 10})
+        commits2 = Heroku::Bartender::Log.get_log({:page => 1, :max_per_page => 10})
+        commits1.size.should == 10
+        commits2.size.should == 10
+        ids1 = commits1.map(&:id)
+        ids2 = commits2.map(&:id)
+        ids1.each do |id|
+          ids2.should_not include id
+        end
+        ids2.each do |id|
+          ids1.should_not include id
+        end
+      end
+    end
+
     context "an element of get log" do
       COMMIT_METHODS = [:sha, :author, :date, :message]
       COMMIT_METHODS.each do |cmtmethod|

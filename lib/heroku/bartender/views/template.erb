@@ -1,83 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <title>Heroku Bartender</title>
-    <style type="text/css">
-      #home{
-      width: 80%;
-      float:left;
-      }
-      #colors{
-      margin-left: 81%;
-      position: fixed;
-      width: 20%;
-      }
-      .current{
-      color: blue;
-      }
-      .green  { background-color: lime;  }
-      .yellow { background-color: yellow; }
-      .red    { background-color: red;    }
-    </style>
+    <link rel="stylesheet" href="/stylesheets/reset.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="/javascript/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+      $(".build img")
+      });
+      var deploy = function(sha){
+        $.post("", { 'sha': sha}, function(){
+          window.location.reload();
+        });
+      };
+    </script>
   </head>
   <body>
-    <div class='title'>
-      <h1> Heroku Bartender</h1>
-    </div>
-    <div>
-    <ul>
-     <li><a href="#<%= current_version %>">
-      Current version status: <%= state(status) %>
-     </a></li>
-     <li>Remote: <b><%= target %></b></li>
-     <li>Pre-deploy: <b><%= predeploy %></b></li>
-    </ul>
-    </div>
-    <div class="site">
-      <div id="home">
-        <ul class="posts">
-          <% commits.each do |commit| %>
-          <li class="<%= current_class(current_version, commit.sha) %> <%= color_status(commit.sha) %>">
-            <a name="<%= commit.sha %>"> <%= commit.sha %> </a>
-            <h3> <%= commit.author %> | <%= commit.email %></h3>
-            <p>
-              <%= commit.message %>
-            </p>
-            <p>
-              <strong> Committed date </strong>
-              <%= commit.date %>
-            </p>
+    <!--       <ul> -->
+    <!--         <li>Remote: <b><%= target %></b></li> -->
+    <!--         <li>Pre-deploy: <b><%= predeploy %></b></li> -->
+    <!--       </ul> -->
+    <div class="container">
+      <%= pagination(page) %>
+      <% commits.each do |commit| %>
+      <div class="build <%= build_status(commit.sha) %>">
+        <div class="content">
+          <h2><%= commit.message %><span class="commit"><%=commit.sha[0..7]%> </h2>
+          <div class="user-info">
+            <img src="<%= user_img_url(commit.email) %>"/>
+            <p> <%= commit.author %> </p>
+            <p class="ago"><strong>Committed: </strong><%= commit.date%></p>
             <% if deployed_versions[commit.sha] %>
-            <p>
-              <strong> Deployed date </strong>
-              <%= deployed_versions[commit.sha][0] %>
-            </p>
-            <div>
-              <small>
-                <%= deployed_versions[commit.sha][2] %>
-              </small>
-            </div>
+            <p class="ago"><strong>Deployed: </strong><%= deployed_versions[commit.sha][0] %></p>
             <% end %>
-            <form method="POST">
-              <input type="hidden" value="<%= commit.sha %>" name="sha"/>
-              <input type="submit" value="Deploy"/>
-            </form>
-
-          </li>
-          <% end %>
-        </ul>
-      </div>
-      <div id='colors'>
-        <div class="green">
-          Ok: The deploy runs properly
-        </div>
-        <div class="yellow">
-          Unknown: No deployed version, or problems contacting heroku
-        </div>
-        <div class="red">
-          Fail: The deploy went wrong
+          </div>
+          <div class="actions">
+            <a href="javascript:deploy('<%= commit.sha %>')"><span class="deploy">Deploy</span></a>
+          </div>
+          <div class="clear"></div>
         </div>
       </div>
+      <% end %>
+      <%= pagination(page) %>
     </div>
   </body>
 </html>

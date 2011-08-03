@@ -13,7 +13,7 @@ Server options:
     -t, --target=TARGET              The target is the git remote in which you want to deploy (default heroku)
         --user=USER                  The user to login using HTTP Basic Auth
         --password=PASSWORD          The password to login using HTTP Basic Auth
-    -c, --commits=COUNT              The maximum number of commits to display (default 100)
+        --commits-per-page           The maximun number of commits that you want to see in each page
 
 For now you must run `heroku-bartender` inside your repo dir
 
@@ -36,11 +36,10 @@ You can specify a command to run before deployment.
 1. Keep the repo up-to-date
 2. Handle branches/tags
 3. DB Rollback
-4. Styling view
-5. Async build
-6. Integration with CI servers
+4. Async build
+5. Integration with CI servers
 
 # Special Thanks go out to:
 * [Art.sy](http://art.sy/) for let me use 'office' hours to work in this project
 * [@abuiles](https://github.com/abuiles) for the super-cool-name 
-
+* [@febuiles](https://github.com/febuiles) for the design

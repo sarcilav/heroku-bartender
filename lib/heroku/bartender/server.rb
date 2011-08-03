@@ -11,9 +11,9 @@ module Heroku
       dir = File.dirname(File.expand_path(__FILE__))
       set :views,  "#{dir}/views"
       set :public, "#{dir}/public"
-
-      def self.commits
-        @@options[:commits]
+      
+      def self.max_per_page
+        @@options[:commits_per_page]
       end
 
       def self.user
@@ -44,21 +44,18 @@ module Heroku
         config.predeploy.to_s
       end
   
-      def self.log_options
-        options = { }
-        options.merge({ :max_count => Server.commits }) if (Server.commits > 0)
-        options
-      end
-
       get "/" do
-        erb(:template, {}, :commits => Log.generate_commits(Server.log_options),
+        page = params[:page] || 0
+        erb(:template, {}, :commits => Log.generate_commits(params.merge({:max_per_page => Server.max_per_page})),
             :current_version => Command.current_version(Server.target),
             :deployed_versions => @@deployed_versions,
-            :status => @@status
+            :status => @@status,
+            :page => page
             )
       end
       
       post "/" do
+        page = params[:page] || 0
         if params[:sha]
           begin
             Command.move_to params[:sha], predeploy, target
@@ -69,10 +66,11 @@ module Heroku
             @@deployed_versions[params[:sha]] = [Time.now, @@status, e]
           end
         end
-        erb(:template, {}, :commits => Log.generate_commits(Server.log_options),
+        erb(:template, {}, :commits => Log.generate_commits(params.merge({:max_per_page => 20})),
             :current_version => Command.current_version(Server.target),
             :deployed_versions => @@deployed_versions,
-            :status => @@status
+            :status => @@status,
+            :page => page
             )
       end
             
@@ -96,27 +94,33 @@ module Heroku
         def current_class(current_version_sha, sha)
           sha == current_version_sha ? 'current' : ''
         end
-
-        def color_status(version_sha)
+        
+        def pagination(page)
+          page = page.to_i
+          if page == 0
+            '<a href="/?page=1"> Next </a>'
+          elsif page > 0
+            "<a href='/?page=0'> First </a> |
+             <a href='/?page=#{page - 1}'> Prev </a> |
+             <a href='/?page=#{page + 1}'> Next </a>"
+          end
+        end
+        
+        def build_status(version_sha)
           if @@deployed_versions[version_sha]
             status = @@deployed_versions[version_sha][1]
             if status == true
-              return 'green'
+              return 'ok'
             elsif status == false
-              return 'red'
+              return 'fail'
             end
-            return 'yellow'
+            return 'unknown'
           end
           ''
         end
-        
-        def state(status)
-          if status == true
-            return 'OK'
-          elsif status == false
-            return 'FAIL'
-          end
-          'UNKNOWN'
+
+        def user_img_url(email)
+          "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}.jpg?"
         end
         
         def target

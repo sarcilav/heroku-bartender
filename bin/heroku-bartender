@@ -32,6 +32,7 @@ Choice.options do
     desc "The user to login using HTTP Basic Auth"
     default d
   end
+  
   option :password  do
     d = nil
     long '--password=PASSWORD'
@@ -48,12 +49,11 @@ Choice.options do
     desc "The target is the git remote in which you want to deploy (default #{d})"
     default d
   end
-
-  option :commits do
-    d = 100
-    short '-c'
-    long '--commits=COUNT'
-    desc "The maximum number of commits to show (default #{d})"
+  
+  option :commits_per_page do
+    d = 20
+    long '--commits-per-page'
+    desc "The maximun number of commits that you want to see in each page (default #{d})"
     default d
   end
   

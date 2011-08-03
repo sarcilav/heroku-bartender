@@ -19,3 +19,11 @@ Next
 0.3.4
 =====
 * Change a .blank? for an .empty?
+
+0.4.0
+=====
+* New Design
+* Add Pagination
+* Add --commits-per-page option
+* Remove --commits option
+
