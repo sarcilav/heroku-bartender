@@ -52,7 +52,7 @@ Choice.options do
   
   option :commits_per_page do
     d = 20
-    long '--commits-per-page'
+    long '--commits-per-page=COMMITS-PER-PAGE'
     desc "The maximun number of commits that you want to see in each page (default #{d})"
     default d
   end
