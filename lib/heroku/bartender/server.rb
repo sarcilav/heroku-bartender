@@ -47,7 +47,6 @@ module Heroku
       before do
         @page    = params[:page] || 0
         @commits = Log.generate_commits(params.merge({:max_per_page => Server.max_per_page}))
-        
       end
      
       get "/" do
