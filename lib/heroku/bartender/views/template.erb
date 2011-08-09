@@ -25,8 +25,8 @@
     <!--         <li>Pre-deploy: <b><%= predeploy %></b></li> -->
     <!--       </ul> -->
     <div class="container">
-      <%= pagination(page) %>
-      <% commits.each do |commit| %>
+      <%= pagination(@page) %>
+      <% @commits.each do |commit| %>
       <div class="build <%= build_status(commit.sha) %>">
         <div class="content">
           <h2><%= commit.message %><span class="commit"><%=commit.sha[0..7]%> </h2>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <% end %>
-      <%= pagination(page) %>
+      <%= pagination(@page) %>
     </div>
   </body>
 </html>

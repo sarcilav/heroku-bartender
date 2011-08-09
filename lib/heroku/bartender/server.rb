@@ -3,15 +3,15 @@ require 'erb'
 module Heroku
   module Bartender
     class Server < Sinatra::Base
-
-      @@deployed_versions = {}
-      @@status = nil
       @@options = {}
-
-      dir = File.dirname(File.expand_path(__FILE__))
-      set :views,  "#{dir}/views"
-      set :public, "#{dir}/public"
       
+      configure do
+        dir = File.dirname(File.expand_path(__FILE__))
+        set :views,  "#{dir}/views"
+        set :public, "#{dir}/public"
+        set :deployed_versions, {}
+      end
+
       def self.max_per_page
         @@options[:commits_per_page]
       end
@@ -43,35 +43,27 @@ module Heroku
       def self.predeploy
         config.predeploy.to_s
       end
-  
+      
+      before do
+        @page    = params[:page] || 0
+        @commits = Log.generate_commits(params.merge({:max_per_page => Server.max_per_page}))
+        
+      end
+     
       get "/" do
-        page = params[:page] || 0
-        erb(:template, {}, :commits => Log.generate_commits(params.merge({:max_per_page => Server.max_per_page})),
-            :current_version => Command.current_version(Server.target),
-            :deployed_versions => @@deployed_versions,
-            :status => @@status,
-            :page => page
-            )
+        erb :template
       end
       
       post "/" do
-        page = params[:page] || 0
         if params[:sha]
           begin
             Command.move_to params[:sha], predeploy, target
-            @@status = true
-            @@deployed_versions[params[:sha]] = [Time.now, @@status, nil]
+            deployed_versions[params[:sha]] = [Time.now, true, nil]
           rescue Exception => e
-            @@status = false
-            @@deployed_versions[params[:sha]] = [Time.now, @@status, e]
+            deployed_versions[params[:sha]] = [Time.now, false, e]
           end
         end
-        erb(:template, {}, :commits => Log.generate_commits(params.merge({:max_per_page => 20})),
-            :current_version => Command.current_version(Server.target),
-            :deployed_versions => @@deployed_versions,
-            :status => @@status,
-            :page => page
-            )
+        erb :template
       end
             
       def self.start(options = {})
@@ -90,11 +82,11 @@ module Heroku
 
       helpers do
         include Rack::Utils
-        
-        def current_class(current_version_sha, sha)
-          sha == current_version_sha ? 'current' : ''
+
+        def deployed_versions
+          settings.deployed_versions
         end
-        
+
         def pagination(page)
           page = page.to_i
           if page == 0
@@ -107,8 +99,8 @@ module Heroku
         end
         
         def build_status(version_sha)
-          if @@deployed_versions[version_sha]
-            status = @@deployed_versions[version_sha][1]
+          if deployed_versions[version_sha]
+            status = deployed_versions[version_sha][1]
             if status == true
               return 'ok'
             elsif status == false
