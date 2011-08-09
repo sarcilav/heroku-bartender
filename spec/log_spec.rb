@@ -15,7 +15,7 @@ describe Heroku::Bartender::Log do
     end
     it "should return an array of commits" do
       @commits.class.should eq(Array)
-      @commits.first.class.should eq(Heroku::Bartender::Commit)
+      @commits.first.class.should eq(Grit::Commit)
     end
   end
   describe "get log" do
