@@ -29,11 +29,11 @@
       <% @commits.each do |commit| %>
       <div class="build <%= build_status(commit.sha) %>">
         <div class="content">
-          <h2><%= commit.message %><span class="commit"><%=commit.sha[0..7]%> </h2>
+          <h2><%= commit.message %><span class="commit"><%= commit.sha[0..7] %> </h2>
           <div class="user-info">
-            <img src="<%= user_img_url(commit.email) %>"/>
-            <p> <%= commit.author %> </p>
-            <p class="ago"><strong>Committed: </strong><%= commit.date%></p>
+            <img src="<%= user_img_url(commit.author.email) %>"/>
+            <p> <%= commit.author.name %> </p>
+            <p class="ago"><strong>Committed: </strong><%= commit.date %></p>
             <% if deployed_versions[commit.sha] %>
             <p class="ago"><strong>Deployed: </strong><%= deployed_versions[commit.sha][0] %></p>
             <% end %>
