@@ -1,17 +1,19 @@
 require 'sinatra/base'
 require 'erb'
+require 'json'
+
 module Heroku
   module Bartender
     class Server < Sinatra::Base
       @@options = {}
-      
+
       configure do
         dir = File.dirname(File.expand_path(__FILE__))
         set :views,  "#{dir}/views"
         set :public, "#{dir}/public"
         set :deployed_versions, {}
       end
-
+      
       def self.max_per_page
         @@options[:commits_per_page]
       end
@@ -52,14 +54,23 @@ module Heroku
       get "/" do
         erb :template
       end
+
+      get "/status" do
+        content_type :json
+        halt 412, { deploying: @@deploying }.to_json
+      end
       
       post "/" do
-        if params[:sha]
-          begin
-            Command.move_to params[:sha], predeploy, target
-            deployed_versions[params[:sha]] = [Time.now, true, nil]
-          rescue Exception => e
-            deployed_versions[params[:sha]] = [Time.now, false, e]
+        if params[:sha] and not @@deploying
+          @@deploying = true
+          Thread.new do
+            begin
+              Command.move_to params[:sha], predeploy, target
+              deployed_versions[params[:sha]] = [Time.now, true, nil]
+            rescue Exception => e
+              deployed_versions[params[:sha]] = [Time.now, false, e]
+            end
+            @@deploying = false
           end
         end
         erb :template
@@ -67,6 +78,7 @@ module Heroku
             
       def self.start(options = {})
         @@options = options
+        @@deploying = false
         authorize(user, password)
         run!(:host => host, :port => port)
       end
@@ -81,6 +93,10 @@ module Heroku
 
       helpers do
         include Rack::Utils
+
+        def deploying
+          @@deploying
+        end
 
         def deployed_versions
           settings.deployed_versions
