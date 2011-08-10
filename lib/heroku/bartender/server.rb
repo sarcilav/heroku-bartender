@@ -57,7 +57,7 @@ module Heroku
 
       get "/status" do
         content_type :json
-        halt 412, { deploying: @@deploying }.to_json
+        { deploying: @@deploying }.to_json
       end
       
       post "/" do
