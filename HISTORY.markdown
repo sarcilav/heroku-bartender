@@ -27,3 +27,6 @@ Next
 * Add --commits-per-page option
 * Remove --commits option
 
+0.4.1
+=====
+* Add feedback while bartender is deploying
