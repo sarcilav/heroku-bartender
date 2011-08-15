@@ -1,150 +1,180 @@
 body {
-  background-color: #1F1F1F;
-  height: 100%;
-  font-size: 16px;
-  font-family: Helvetica, Arial, sans-serif;
+    background-color: #1F1F1F;
+    height: 100%;
+    font-size: 16px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 strong {
-  width: 75px;
-  display: block;
-  float: left;
-  font-style: normal;
+    width: 75px;
+    display: block;
+    float: left;
+    font-style: normal;
 }
 
 div.container {
-  width: 960px;
-  margin: 0 auto;
-  padding: 1em 1em;
-  background-color: white;
+    width: 960px;
+    margin: 0 auto;
+    padding: 1em 1em;
+    background-color: white;
 }
 
 div.build {
-  width: 542px;
-  padding: 0.5em;
-  margin-bottom: 1em;
-  border-radius: 5px;
+    width: 542px;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border-radius: 5px;
 }
 
 div.content {
-  border-radius: 5px;
-  width: 450px;
-  padding: 1em;
-  background-color: white;
+    border-radius: 5px;
+    width: 450px;
+    padding: 1em;
+    background-color: white;
 }
 
 div.build em {
-  display: block;
-  padding-right: 12px;
-  float: left;
-  font-family: 'Inconsolata', Courier;
-  font-size: 0.9em;
+    display: block;
+    padding-right: 12px;
+    float: left;
+    font-family: 'Inconsolata', Courier;
+    font-size: 0.9em;
 }
 
 div.build h2 {
-  display: block;
-  font-size: 1.75em;
-  margin-bottom: 7px;
-  margin-top: -10px;
-  font-weight: 300;
-  letter-spacing: -2px;
-  font-family: Helvetica;
+    display: block;
+    font-size: 1.75em;
+    margin-bottom: 7px;
+    margin-top: -10px;
+    font-weight: 300;
+    letter-spacing: -2px;
+    font-family: Helvetica;
 }
 
 div.build h2 span {
-  color: #999;
-  float: right;
+    color: #999;
+    float: right;
 }
 
 
 div.user-info {
-  margin-top: 15px;
-  width: 414px;
-  height: 60px;
+    margin-top: 15px;
+    width: 414px;
+    height: 60px;
 }
 
 div.user-info img {
-  display: block;
-  border: 1px solid black;
-  float: left;
-  height: 50px;
+    display: block;
+    border: 1px solid black;
+    float: left;
+    height: 50px;
 
 }
 
 
 div.user-info p {
-  float: right;
-  width: 352px;
+    float: right;
+    width: 352px;
 }
 
 div.user-info p.ago {
-  font-family: "Inconsolata", Courier;
-  font-style: italic;
-  font-size: 0.8em;
-  color: #444;
-  margin-top: 4px;
+    font-family: "Inconsolata", Courier;
+    font-style: italic;
+    font-size: 0.8em;
+    color: #444;
+    margin-top: 4px;
 }
 
 div.actions {
-  width: 450px;
-  clear: both;
-  margin-top: 10px;
+    width: 450px;
+    clear: both;
+    margin-top: 10px;
 }
 
 div.actions span {
-  width: 43px;
-  display: block;
-  line-height: 15px;
-  padding-left: 20px;
-  float: left;
-  height: 15px;
-  font-size: 0.7em;
+    width: 43px;
+    display: block;
+    line-height: 15px;
+    padding-left: 20px;
+    float: left;
+    height: 15px;
+    font-size: 0.7em;
 }
 
 div.actions a {
-  color: #000;
-  text-decoration: none;
+    color: #000;
+    text-decoration: none;
 }
 div.actions span:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 div.actions span.build {
-  background: url("/images/build.png") no-repeat;
+    background: url("/images/build.png") no-repeat;
 }
 
 div.actions span.deploy {
-  background: url("/images/deploy.png") no-repeat;
+    background: url("/images/deploy.png") no-repeat;
 }
 
 .clear { clear: both; }
 
 /* Default Box */
 div.build > div {
-  border: 1px solid white;
-  box-shadow: 0px 0px 1px black;
+    border: 1px solid white;
+    box-shadow: 0px 0px 1px black;
 }
 
 /* Green Frame */
 div.ok {
-  -moz-box-shadow: 1px 1px 3px #7fb800;
-  -webkit-box-shadow: 1px 1px 3px #7fb800;
-  box-shadow: 1px 1px 3px #4d7000;
-  background: url("/images/ok.png") 500px 50% no-repeat #96da00;
+    -moz-box-shadow: 1px 1px 3px #7fb800;
+    -webkit-box-shadow: 1px 1px 3px #7fb800;
+    box-shadow: 1px 1px 3px #4d7000;
+    background: url("/images/ok.png") 500px 50% no-repeat #96da00;
 }
 
 /* Red Frame */
 div.fail {
-  -moz-box-shadow: 1px 1px 3px #7d0d00;
-  -webkit-box-shadow: 1px 1px 3px #7d0d00;
-  box-shadow: 1px 1px 3px #7d0d00;
-  background: url("/images/fail.png") 500px 50% no-repeat #ff3c26;
+    -moz-box-shadow: 1px 1px 3px #7d0d00;
+    -webkit-box-shadow: 1px 1px 3px #7d0d00;
+    box-shadow: 1px 1px 3px #7d0d00;
+    background: url("/images/fail.png") 500px 50% no-repeat #ff3c26;
 }
 
 /* Yellow Frame */
 div.unknown {
-  background: url("/images/unknown.png") 500px 50% no-repeat #ffff17;
-  -moz-box-shadow: 1px 1px 3px #9b9b24;
-  -webkit-box-shadow: 1px 1px 3px #9b9b24;
-  box-shadow: 1px 1px 3px #9b9b24;
+    background: url("/images/unknown.png") 500px 50% no-repeat #ffff17;
+    -moz-box-shadow: 1px 1px 3px #9b9b24;
+    -webkit-box-shadow: 1px 1px 3px #9b9b24;
+    box-shadow: 1px 1px 3px #9b9b24;
+}
+
+/* Deploying overlay */
+#deploying {
+    display:none;
+    width:400px;
+    border:10px solid white;
+    border:10px solid rgba(82, 82, 82, 0.698);
+    -moz-border-radius:8px;
+	-webkit-border-radius:8px;
+}
+
+#deploying div {
+    padding:10px;
+    border:1px solid black;
+    background-color:#fff;
+    font-family:'Inconsolata', Courier;
+}
+
+#deploying h2 {
+    margin:-11px;
+    margin-bottom:0px;
+    color:#999;
+    background-color: #ffff17;
+    padding:5px 10px;
+    border:1px solid black;
+    font-size:20px;
+}
+#deploying span {
+    font-size:15px;
 }
