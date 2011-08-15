@@ -8,24 +8,18 @@
     <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="/javascript/jquery-1.5.1.min.js"></script>
-    <script type="text/javascript">
-      $(function(){
-        $(".build img")
-      });
-      var deploy = function(sha){
-        $.post("", { 'sha': sha}, function(){
-          window.location.reload();
-        });
-      };
+    <script type="text/javascript" src="/javascript/app.js">
     </script>
   </head>
   <body>
-    <!--       <ul> -->
-    <!--         <li>Remote: <b><%= target %></b></li> -->
-    <!--         <li>Pre-deploy: <b><%= predeploy %></b></li> -->
-    <!--       </ul> -->
     <div class="container">
       <%= pagination(@page) %>
+     
+      <div class="content">
+        <p>Remote: <b><%= target %></b></p>
+        <p>Pre-deploy: <b><%= predeploy %></b></p>
+      </div>
+
       <% @commits.each do |commit| %>
       <div class="build <%= build_status(commit.sha) %>">
         <div class="content">
