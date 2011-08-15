@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.files                       += Dir.glob("bin/**/*")
   
   spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rack-test"
   spec.add_dependency("grit", ">= 2.4.1")
   spec.add_dependency("sinatra", ">= 1.2.0")
   spec.add_dependency("choice", ">= 0.1.4")
