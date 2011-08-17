@@ -21,11 +21,8 @@ module Heroku
       def self.move_to release, predeploy, heroku_remote
         @@last_error = nil
         if predeploy && ! predeploy.strip.empty?
-          rc = system(predeploy)
-          if rc.nil? || ! rc
-            raise "Error executing pre-deploy command '#{predeploy}': #{$?}"
-          end
-        end
+          Sandbox.new(release).predeploy(predeploy.strip)
+        end          
         repo = Grit::Repo.new('.')
         if ! repo.remote_list.include?(heroku_remote)
           raise "No such remote `#{heroku_remote}`"
