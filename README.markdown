@@ -8,12 +8,13 @@ Is a simple way to manage releases in heroku
         heroku-bartender
 ## Options
 Server options:
-    -h, --host=HOST                  The hostname or ip of the host to bind to (default 0.0.0.0)
-    -p, --port=PORT                  The port to listen on (default 4567)
-    -t, --target=TARGET              The target is the git remote in which you want to deploy (default heroku)
-        --user=USER                  The user to login using HTTP Basic Auth
-        --password=PASSWORD          The password to login using HTTP Basic Auth
-        --commits-per-page           The maximun number of commits that you want to see in each page
+
+		-h, --host=HOST              The hostname or ip of the host to bind to (default 0.0.0.0)
+		-p, --port=PORT              The port to listen on (default 4567)
+		-t, --target=TARGET          The target is the git remote in which you want to deploy (default heroku)
+		--user=USER                  The user to login using HTTP Basic Auth
+		--password=PASSWORD          The password to login using HTTP Basic Auth
+		--commits-per-page           The maximun number of commits that you want to see in each page
 
 For now you must run `heroku-bartender` inside your repo dir
 
@@ -31,6 +32,7 @@ You can specify a command to run before deployment.
 4. Shows red/yellow/green status for deploys (red: fail, green: ok, yellow: unknow problem)
 5. Shows dates for deployed versions
 6. Shows colors/status for old deployed versions (only the versions that are deployed from the start)
+7. Sandbox your code with the specific version when you need to run predeploy commands
 
 # TODO
 1. Keep the repo up-to-date
