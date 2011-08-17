@@ -30,3 +30,7 @@ Next
 0.4.1
 =====
 * Add feedback while bartender is deploying
+
+0.5.0
+=====
+* Bartender now can copy the repository to a temporal directory to move to an specific version of the code to run the predeploy command
