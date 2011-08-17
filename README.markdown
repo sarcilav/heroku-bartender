@@ -41,6 +41,13 @@ You can specify a command to run before deployment.
 4. Async build
 5. Integration with CI servers
 
+# Screenshots
+
+![Successful](http://f.cl.ly/items/1U1S2b45161H3x3N1V2z/Screen%20shot%202011-08-17%20at%2011.43.48%20AM.png)
+
+## Waiting the predeploy command
+![Predeploying](http://f.cl.ly/items/2t2I3v3b0A0v0Y413f3Q/Screen%20shot%202011-08-17%20at%2011.44.48%20AM.png)
+
 # Special Thanks go out to:
 * [Art.sy](http://art.sy/) for let me use 'office' hours to work in this project
 * [@abuiles](https://github.com/abuiles) for the super-cool-name 
