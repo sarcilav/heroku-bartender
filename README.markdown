@@ -38,8 +38,7 @@ You can specify a command to run before deployment.
 1. Keep the repo up-to-date
 2. Handle branches/tags
 3. DB Rollback
-4. Async build
-5. Integration with CI servers
+4. Integration with CI servers
 
 # Screenshots
 
